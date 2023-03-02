@@ -1,10 +1,10 @@
 import os
 
-import cv2.cv2 as cv2
+import cv2
 import numpy as np
 from tifffile import tifffile
 
-from utils.image_utils import get_visible_label_max
+from utils_py.image_utils import get_visible_label_max
 
 
 def transform_imgs():
@@ -19,9 +19,9 @@ def transform_imgs():
 
 
 if __name__ == "__main__":
-    dataset_path = 'C:/bakalarka/he/datasets/HE'
-    input_path = dataset_path + '/images'
-    output_path = dataset_path + '/labels'
+    dataset_path = 'D:\\bakalarka\\old\\he\\datasets\\HE'
+    input_path = dataset_path + '\\labels'
+    output_path = dataset_path + '\\test'
     transform_imgs()
 
     exit(0)

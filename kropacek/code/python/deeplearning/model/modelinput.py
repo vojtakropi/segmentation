@@ -5,7 +5,7 @@ import random
 import numpy as np
 import segmentation_models_pytorch as smp
 
-from utils.dataset_utils import get_pre_processing, load_text
+from utils_py.dataset_utils import get_pre_processing, load_text
 
 
 class ModelInput:
@@ -100,7 +100,7 @@ class ModelInput:
             activation=self.activation,
             in_channels=self.in_channels
         )
-
+        self.model = torch.load('D:\\bakalarka\\new\\wg_settings\\weights.pth')
         self.optimizer = torch.optim.Adam([
             {'params': self.model.encoder.parameters(), 'lr': 10 ** self.log_lre},
             {'params': self.model.decoder.parameters(), 'lr': 10 ** self.log_lrd},

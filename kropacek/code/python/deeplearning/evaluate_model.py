@@ -9,7 +9,7 @@ import torch
 from torch.utils.data import DataLoader
 
 from loader.DatasetWeighted import DatasetWeighted
-from utils.dataset_utils import load_text
+from utils_py.dataset_utils import load_text
 
 
 def evaluate_model(model_input, spent_time=-1, last_epoch=-1):

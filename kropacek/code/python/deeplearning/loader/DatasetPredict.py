@@ -1,5 +1,4 @@
-import cv2.cv2 as cv2
-import tifffile
+import cv2
 from torch.utils.data import Dataset as DatasetTorch
 
 
@@ -20,7 +19,7 @@ class DatasetPredict(DatasetTorch):
 
     def __getitem__(self, i):
         img_name = self.file_names[i]
-        img_path = self.data_path / 'images_unlabeled' / img_name
+        img_path = self.data_path + "\\"+ img_name
         image = cv2.imread(str(img_path) + '.png')
 
         if self.preprocessing:

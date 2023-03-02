@@ -1,5 +1,7 @@
+import os
+import torchvision.transforms as transforms
 import segmentation_models_pytorch as smp
-
+from PIL import Image
 from evaluate_model import evaluate_model
 from deeplearning.model.modelinput import ModelInput
 from train_model import train_model
@@ -8,7 +10,7 @@ from train_model import train_model
 def main():
     model_input = ModelInput(evaluate_only=False,
                              model_id='deeplabv3+_02',
-                             histology_segmentation_root_str='C:/bakalarka/he',
+                             histology_segmentation_root_str='D:\\bakalarka\\old\\he',
                              dataset_name='HE',
                              sub_dataset_path_str='dataset_train63_valid20_test0',
                              augmentation_file_name='aug01',
@@ -35,4 +37,11 @@ def main():
 
 
 if __name__ == '__main__':
+    # baseptah = "D:\\bakalarka\\new\\wg_settings\\datasets\\HE\\labels"
+    # for img in os.listdir(baseptah):
+    #     image = Image.open(baseptah + "\\" + img)
+    #     img = img.split("_")
+    #     newimg = image.resize((224, 224))
+    #     image2 = img[0] + "_ultr_" + img[2].replace("png", "tiff")
+    #     newimg.save(baseptah + "\\" + image2)
     main()

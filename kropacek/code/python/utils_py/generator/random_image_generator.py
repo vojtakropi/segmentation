@@ -6,7 +6,7 @@ import random
 
 from skimage import morphology
 
-from utils.visualization_utils import tech_show_image
+from utils_py.visualization_utils import tech_show_image
 
 
 def get_target_size():

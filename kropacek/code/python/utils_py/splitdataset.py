@@ -19,7 +19,7 @@ def export_dataset(train_filenames, valid_filenames, test_filenames, data_dir):
 
 def split_dataset(train_ratio, valid_ratio, test_ratio, data_dir):
     data_dir = Path(data_dir)
-    file_names = set(sorted([fn.stem for fn in (data_dir / 'images_unlabeled').iterdir()]))
+    file_names = set(sorted([fn.stem for fn in data_dir.iterdir()]))
     patients = {}
     for img in file_names:
         img_name_split = img.split('_')
@@ -74,7 +74,7 @@ if __name__ == "__main__":
     # data_dir = sys.argv[4]
     train_ratio = 0.0
     valid_ratio = 0.0
-    test_ratio = 0.0
-    data_dir = 'C:/bakalarka/vg/datasets/VG'
+    test_ratio = 1
+    data_dir = 'D:\\bakalarka\\to_black\\ultr_resized'
     split_dataset(train_ratio, valid_ratio, test_ratio, data_dir)
     exit(0)

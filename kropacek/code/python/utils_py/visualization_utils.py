@@ -4,7 +4,7 @@ from matplotlib.patches import Patch
 from functools import partial
 from pathlib import Path
 
-from utils.image_utils import segment2mask, contours_morphology, unique_indexes
+from utils_py.image_utils import segment2mask, contours_morphology, unique_indexes
 
 
 def make_legend_elements(colors, labels, indexes):

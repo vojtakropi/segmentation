@@ -1,10 +1,10 @@
 from lxml import etree
 
-from cvat.model.cvat import Annotations, Meta, Task
-from utils_py.cvat_utils import points_to_string
+from export.cvat.model.cvat import Annotations, Meta, Task
+from utils.cvat_utils import points_to_string
 
 
-def create_sub_element_value(element, name: str, value):
+def create_sub_element_value(element, name:str, value):
     tag = etree.SubElement(element, name)
     tag.text = str(value)
     return tag
@@ -50,14 +50,14 @@ def map_task(element, task: Task):
     if task is None:
         return
     task_tag = etree.SubElement(element, 'task')
-    sub_element_names = ['id', 'name', 'size', 'mode', 'overlap', 'created', 'updated', 'start_frame',
+    sub_element_names = ['id', 'name', 'size', 'mode', 'overlap', 'created', 'updated', 'start_frame', 
                          'stop_frame', 'z_order']
     for name in sub_element_names:
         create_sub_element_value_dynamic(task_tag, name, task)
     map_labels(task_tag, task.labels)
     map_segments(task_tag, task.segments)
     return task_tag
-
+    
 
 def map_meta(element, meta: Meta):
     if meta is None:

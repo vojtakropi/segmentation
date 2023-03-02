@@ -1,7 +1,7 @@
-import cv2.cv2 as cv2
+import cv2
 import tifffile
 from torch.utils.data import Dataset as DatasetTorch
-
+from numpy import asarray
 
 class DatasetWeighted(DatasetTorch):
 
@@ -20,13 +20,13 @@ class DatasetWeighted(DatasetTorch):
 
     def __getitem__(self, i):
         img_name = self.file_names[i]
-        img_path = self.data_path / 'images' / img_name
-        label_path = self.data_path / 'labels' / img_name
+        img_path = self.data_path + '\\ultr_resized\\' + img_name
+        label_path = self.data_path + '\\ultr_resized\\' + img_name
         image = cv2.imread(str(img_path) + '.png')
-        label = tifffile.imread(str(label_path) + '.tiff')
+        label = cv2.imread(str(label_path) + '.png')
 
         label = label / 255
-
+        label = asarray(label)
         if self.augmentation:
             sample = self.augmentation(image=image, mask=label)
             image = sample['image']

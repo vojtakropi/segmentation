@@ -3,9 +3,7 @@ import cv2
 import numpy as np
 from pathlib import Path
 
-
-from utils_py.cvat_utils import get_categories_to_colors
-from utils_py.image_utils import segment2mask
+from cvat.utils import get_categories_to_colors, segment2mask
 
 
 def main():

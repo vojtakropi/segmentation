@@ -7,7 +7,7 @@ import torch
 from torch.utils.data import DataLoader
 
 from loader.DatasetWeighted import DatasetWeighted
-from utils.dataset_utils import load_text, save_logs, save_learning_graph
+from utils_py.dataset_utils import load_text, save_logs, save_learning_graph
 
 
 def train_model(model_input):

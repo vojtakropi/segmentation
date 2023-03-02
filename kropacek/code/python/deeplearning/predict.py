@@ -2,35 +2,35 @@ import json
 from pathlib import Path
 
 import torch
-import cv2.cv2 as cv2
+import cv2
 import numpy as np
 import pandas as pd
 import sklearn.metrics as sm
 
-from loader.DatasetPredict import DatasetPredict
-from utils.dataset_utils import load_text
-from utils.image_utils import get_visible_label_max
+from loader.DatasetWeighted import DatasetWeighted
+from utils_py.dataset_utils import load_text
+from utils_py.image_utils import get_visible_label_max
 
 
 def main():
-    model_base_path = Path('C:/bakalarka/vg/datasets/VG/dataset_train71_valid20_test0/results/deeplabv3+_02')
+    model_base_path = Path('D:\\bakalarka\\to_gaussian')
 
-    output_path = Path(model_base_path / 'simulations/predictions_valid')
+    output_path = Path(model_base_path / '\\predictions_valid')
     output_path.mkdir(parents=True, exist_ok=True)
 
     model_input = torch.load(model_base_path / 'model_settings.pth')
-    model = torch.load(model_base_path / 'weights.pth')
+    model = torch.load(model_base_path / 'weights_gausian.pth')
 
-    with open(model_base_path / 'valid_logs.json') as f:
-        data = json.load(f)
-        data = sorted(data, key=lambda item: item['fscore'], reverse=True)
-        print(data[0])
+    # with open(model_base_path / 'valid_logs.json') as f:
+    #     data = json.load(f)
+    #     data = sorted(data, key=lambda item: item['fscore'], reverse=True)
+    #     print(data[0])
 
     # by filename
     # img_names = [os.path.splitext(filename)[0] for filename in os.listdir(images_path)]
-    img_names = load_text(model_input.dataset_path / 'images_unlabeled.txt')
+    img_names = load_text("D:\\bakalarka\\to_gaussian" + '\\test.txt')
 
-    test_dataset = DatasetPredict(
+    test_dataset = DatasetWeighted(
         data_path=model_input.dataset_base_path,
         file_names=img_names,
         preprocessing=model_input.pre_processing
@@ -40,7 +40,7 @@ def main():
     scores_matrix_macro = []
     # own metrics evaluation, possible to extract predictions
     for index, data in enumerate(test_dataset):
-        inputs = data
+        inputs, labels = data
         name = test_dataset.file_names[index]
         #input_img = labels.transpose(1, 2, 0)
         transformed = torch.from_numpy(inputs).to(model_input.device).unsqueeze(0)
@@ -58,13 +58,41 @@ def main():
             maximum_per_class[:, :, dim] = saved_res
 
         result = get_visible_label_max(maximum_per_class)
-        cv2.imwrite(str(output_path / (name + '.png')), result)
+        cv2.imwrite(output_path + "\\" + name + '.png', result)
 
-        scores_micro = []
-        scores_raw_micro = []
-        scores_macro = []
-        scores_raw_macro = []
+        # scores_micro = []
+        # scores_raw_micro = []
+        # scores_macro = []
+        # scores_raw_macro = []
+        # for i in range(0, len(model_input.classes)):
+        #     # input?
+        #     modif_input_img = input_img[:, :, i].ravel()
+        #     modif_input_img[modif_input_img > 0] = 1
+        #
+        #     score_micro = sm.f1_score(modif_input_img, predicted_img[:, :, i].ravel(), average='micro')
+        #     score_macro = sm.f1_score(modif_input_img, predicted_img[:, :, i].ravel(), average='macro')
+        #     scores_raw_micro.append(score_micro)
+        #     scores_micro.append({model_input.classes[i]: score_micro})
+        #
+        #     scores_raw_macro.append(score_macro)
+        #     scores_macro.append({model_input.classes[i]: score_macro})
+        # scores_matrix_micro.append(scores_raw_micro)
+        # scores_matrix_macro.append(scores_raw_macro)
 
+    # scores_data_frame_micro = pd.DataFrame(
+    #     np.array(scores_matrix_micro),
+    #     index=img_names,
+    #     columns=model_input.classes
+    # ).sort_index()
+    #
+    # scores_data_frame_macro = pd.DataFrame(
+    #     np.array(scores_matrix_macro),
+    #     index=img_names,
+    #     columns=model_input.classes
+    # ).sort_index()
+    #
+    # scores_data_frame_micro.to_excel(model_input.model_path / 'f1_micro_per_image_per_class.xlsx')
+    # scores_data_frame_macro.to_excel(model_input.model_path / 'f1_macro_per_image_per_class.xlsx')
     print("done")
 
 

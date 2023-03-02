@@ -4,7 +4,7 @@ import cv2
 import numpy as np
 from lxml import etree
 
-from utils_py.cvat_utils import get_categories_to_colors
+from utils.cvat_utils import get_categories_to_colors
 
 
 def main():

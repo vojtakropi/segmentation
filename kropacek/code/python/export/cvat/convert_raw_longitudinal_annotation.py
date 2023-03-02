@@ -1,14 +1,13 @@
 import os
 from pathlib import Path
 
-import cv2.cv2 as cv2
+import cv2
 import numpy as np
 from scipy import ndimage
 from skimage.measure import label
 from matplotlib import pyplot as plt
 
-from utils_py.cvat_utils import get_categories_to_colors
-from utils_py.image_utils import segment2mask, points2mask, mask2points
+from cvat.utils import get_categories_to_colors, segment2mask, points2mask, mask2points
 
 
 def main():

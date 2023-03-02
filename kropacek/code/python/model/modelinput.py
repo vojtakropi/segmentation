@@ -5,7 +5,7 @@ import random
 import numpy as np
 import segmentation_models_pytorch as smp
 
-from utils.dataset_utils import get_pre_processing, load_text
+from utils_py.dataset_utils import get_pre_processing, load_text
 
 
 class ModelInput:

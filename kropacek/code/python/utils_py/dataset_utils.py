@@ -27,7 +27,9 @@ def get_pre_processing(encoder_name, encoder_weights):
 
 
 def load_text(path):
-    return path.read_text().split('\n')
+    f = open(path, "rt")
+    data = f.read().split("\n")
+    return data #path.read_text().split('\n')
 
 
 def load_colors(path):
@@ -35,9 +37,9 @@ def load_colors(path):
 
 
 def save_logs(all_train_logs, all_valid_logs, results_path):
-    with open(results_path / 'train_logs.json', 'w') as train_logs_file:
+    with open(results_path + '\\train_logs.json', 'w') as train_logs_file:
         json.dump(all_train_logs, train_logs_file)
-    with open(results_path / 'valid_logs.json', 'w') as valid_logs_file:
+    with open(results_path + '\\valid_logs.json', 'w') as valid_logs_file:
         json.dump(all_valid_logs, valid_logs_file)
 
 
@@ -52,4 +54,4 @@ def save_learning_graph(all_train_logs, all_valid_logs, metric, title, graph_nam
     plt.ylabel(metric)
     plt.legend(loc='best')
     plt.title(title)
-    plt.savefig(results_path / (graph_name + '.png'), dpi=200)
+    plt.savefig(results_path +"\\"+ (graph_name + '.png'), dpi=200)

@@ -11,7 +11,7 @@ from shapely import geometry
 from scipy.spatial import distance
 from cvat.mapper.cvat_mapper import map_to_xml
 from cvat.model.cvat import Label, Image, Polygon, Annotations
-from utils.image_utils import mask_by_color
+from utils_py.image_utils import mask_by_color
 
 
 def convert_mask_to_cvat_xml(id, img_name, input_img, img):

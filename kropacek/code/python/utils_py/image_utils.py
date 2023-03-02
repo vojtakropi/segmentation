@@ -26,11 +26,11 @@ def get_visible_label_max(maximum_per_class):
     # bg index
     background_indices = next(filter(lambda item: item['label'] == 0, labels))['data']
     # plaque_idx
-    plaque_indices = next(filter(lambda item: item['label'] == 7, labels))['data']
-
-    # plaque must go first
-    if np.count_nonzero(plaque_indices) > 0:
-        result[plaque_indices] = plaque_color
+    # plaque_indices = next(filter(lambda item: item['label'] == 7, labels))['data']
+    #
+    # # plaque must go first
+    # if np.count_nonzero(plaque_indices) > 0:
+    #     result[plaque_indices] = plaque_color
     # order is then done by area of labels
     for label in labels:
         idx = label['label']
